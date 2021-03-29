@@ -1,13 +1,20 @@
 package com.quickstart.person.controller
 
+import com.quickstart.person.dto.PersonDTO
+import com.quickstart.person.dto.toDTO
+import com.quickstart.person.ports.input.PersonInputPort
 import io.micronaut.http.MediaType.APPLICATION_JSON
+import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.Post
+import kotlinx.coroutines.coroutineScope
 
 @Controller("/person")
-class PersonController {
-    @Get(produces = [APPLICATION_JSON])
-    fun save(): Map<String, String> {
-        return mapOf("teste" to "123")
+class PersonController(
+    private val personInputPort: PersonInputPort
+) {
+    @Post(produces = [APPLICATION_JSON])
+    suspend fun save(@Body personDTO: PersonDTO) = coroutineScope {
+        personInputPort.save(personDTO.toModel()).toDTO()
     }
 }

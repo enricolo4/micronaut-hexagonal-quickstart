@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.Coroutines
+
 val kotlinVersion= project.properties["kotlinVersion"]
 val micronautVersion = project.properties["micronautVersion"]
 
@@ -43,21 +45,25 @@ subprojects {
 
     dependencies {
         kapt("io.micronaut.data:micronaut-data-processor")
-        kapt("io.micronaut:micronaut-inject-java")
-        kapt("io.micronaut:micronaut-inject")
 
+        annotationProcessor("io.micronaut:micronaut-inject-java")
+        kapt("io.micronaut:micronaut-inject-java")
         kaptTest("io.micronaut:micronaut-inject-java")
-        kaptTest("io.micronaut:micronaut-inject")
+
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
         implementation("io.micronaut:micronaut-runtime")
         implementation("io.micronaut.flyway:micronaut-flyway")
         implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
-        implementation("javax.annotation:javax.annotation-api")
-        implementation("org.jetbrains.kotlin:kotlin-reflect")
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
+        implementation("io.micronaut:micronaut-inject")
         implementation("io.micronaut:micronaut-validation")
         implementation("io.micronaut.kotlin:micronaut-kotlin-extension-functions")
+
+        implementation("javax.annotation:javax.annotation-api")
+
 //        implementation("io.micronaut.r2dbc:micronaut-r2dbc-core")
 //        implementation("io.micronaut.r2dbc:micronaut-data-r2dbc")
 
@@ -70,6 +76,10 @@ subprojects {
             imports {
                 mavenBom("io.micronaut:micronaut-bom:${micronautVersion}")
             }
+        }
+
+        kotlin {
+            experimental.coroutines = Coroutines.ENABLE
         }
     }
 
