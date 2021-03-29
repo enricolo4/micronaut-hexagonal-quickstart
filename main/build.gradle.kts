@@ -34,7 +34,7 @@ micronaut {
 
 tasks {
     jar {
-        archiveBaseName.set("micronaut-quickstart")
+        archiveBaseName.set("micronaut-hexagonal-quickstart")
         archiveVersion.set("")
 
         manifest {

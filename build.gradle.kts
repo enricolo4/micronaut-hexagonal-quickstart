@@ -18,11 +18,6 @@ allprojects {
         mavenCentral()
         maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
     }
-
-    dependencies {
-        annotationProcessor("io.micronaut:micronaut-inject")
-        annotationProcessor("io.micronaut:micronaut-inject-java")
-    }
 }
 
 subprojects {
@@ -48,6 +43,11 @@ subprojects {
 
     dependencies {
         kapt("io.micronaut.data:micronaut-data-processor")
+        kapt("io.micronaut:micronaut-inject-java")
+        kapt("io.micronaut:micronaut-inject")
+
+        kaptTest("io.micronaut:micronaut-inject-java")
+        kaptTest("io.micronaut:micronaut-inject")
 
         implementation("io.micronaut:micronaut-runtime")
         implementation("io.micronaut.flyway:micronaut-flyway")
@@ -60,9 +60,6 @@ subprojects {
         implementation("io.micronaut.kotlin:micronaut-kotlin-extension-functions")
 //        implementation("io.micronaut.r2dbc:micronaut-r2dbc-core")
 //        implementation("io.micronaut.r2dbc:micronaut-data-r2dbc")
-
-        annotationProcessor("io.micronaut:micronaut-inject")
-        annotationProcessor("io.micronaut:micronaut-inject-java")
 
         runtimeOnly("ch.qos.logback:logback-classic")
         runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
