@@ -1,0 +1,15 @@
+micronaut:
+  application:
+    name: micronautHexagonalQuickstart
+r2dbc:
+  datasources:
+    default:
+      schema-generate: CREATE_DROP
+      dialect: H2
+      url: r2dbc:h2:mem:///testdb;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password: ''
+endpoints:
+  all:
+    enabled: true
+    sensitive: false

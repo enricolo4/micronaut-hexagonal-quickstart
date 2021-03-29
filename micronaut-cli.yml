@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.quickstart
+testFramework: kotest
+sourceLanguage: kotlin
+buildTool: gradle_kotlin
+features: [annotation-api, app-name, data, data-r2dbc, flyway, gradle, h2, http-client, kotest, kotlin, kotlin-application, kotlin-extension-functions, logback, netty-server, r2dbc, readme, shade, testcontainers, yaml]
