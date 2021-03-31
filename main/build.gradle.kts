@@ -55,4 +55,5 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":rest"))
     implementation(project(":kafka-consumer"))
+    implementation(project(":mysql"))
 }

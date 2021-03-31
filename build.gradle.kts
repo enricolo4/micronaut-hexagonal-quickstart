@@ -46,7 +46,6 @@ subprojects {
     dependencies {
         kapt("io.micronaut.data:micronaut-data-processor")
 
-        annotationProcessor("io.micronaut:micronaut-inject-java")
         kapt("io.micronaut:micronaut-inject-java")
         kaptTest("io.micronaut:micronaut-inject-java")
 
@@ -55,6 +54,7 @@ subprojects {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
+        implementation("io.micronaut.reactor:micronaut-reactor")
         implementation("io.micronaut:micronaut-runtime")
         implementation("io.micronaut.flyway:micronaut-flyway")
         implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
@@ -64,23 +64,18 @@ subprojects {
 
         implementation("javax.annotation:javax.annotation-api")
 
-//        implementation("io.micronaut.r2dbc:micronaut-r2dbc-core")
-//        implementation("io.micronaut.r2dbc:micronaut-data-r2dbc")
-
         runtimeOnly("ch.qos.logback:logback-classic")
         runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
-//        runtimeOnly("com.h2database:h2")
-//        runtimeOnly("io.r2dbc:r2dbc-h2")
 
         dependencyManagement {
             imports {
                 mavenBom("io.micronaut:micronaut-bom:${micronautVersion}")
             }
         }
+    }
 
-        kotlin {
-            experimental.coroutines = Coroutines.ENABLE
-        }
+    kotlin {
+        experimental.coroutines = Coroutines.ENABLE
     }
 
     java {

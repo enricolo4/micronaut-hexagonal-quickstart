@@ -1,0 +1,17 @@
+version: '3'
+
+volumes:
+  user-data:
+
+services:
+  db_certs_service:
+    image: mysql:8.0
+    restart: always
+    container_name: micronaut-hexagonal-quickstart
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mhq_db
+      MYSQL_USER: mhq_user
+      MYSQL_PASSWORD: mhq_pwd
+    ports:
+      - "3311:3306"

@@ -6,6 +6,7 @@ import com.quickstart.person.ports.input.PersonInputPort
 import io.micronaut.http.MediaType.APPLICATION_JSON
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import kotlinx.coroutines.coroutineScope
 
@@ -16,5 +17,13 @@ class PersonController(
     @Post(produces = [APPLICATION_JSON])
     suspend fun save(@Body personDTO: PersonDTO) = coroutineScope {
         personInputPort.save(personDTO.toModel()).toDTO()
+    }
+
+    @Get(produces = [APPLICATION_JSON])
+    suspend fun findAll() = coroutineScope {
+        personInputPort.findAll()
+            .map { person ->
+                person.toDTO()
+            }
     }
 }
