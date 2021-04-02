@@ -47,6 +47,6 @@ kafka:
 #      value-serializer: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerializer
   consumers:
     default:
-      value-deserializer: io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer
       key-deserializer: org.apache.kafka.common.serialization.UUIDDeserializer
+      value-deserializer: io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer
 #      value.deserializer: io.confluent.kafka.streams.serdes.avro.SpecificAvroDeserializer

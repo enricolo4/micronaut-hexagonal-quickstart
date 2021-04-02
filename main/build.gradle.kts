@@ -55,7 +55,7 @@ val kafkaJsonSerializer = project.properties["kafkaJsonSerializer"]
 val micronautKafka = project.properties["micronautKafka"]
 val micronautVersion = project.properties["micronautVersion"]
 
-val inputProjects = listOf(":rest")
+val inputProjects = listOf(":rest", ":kafka-consumer")
 val outputProjects = listOf(":mysql", ":kafka-producer")
 val projects = listOf(":domain") + inputProjects + outputProjects
 

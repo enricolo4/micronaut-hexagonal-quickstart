@@ -14,9 +14,6 @@ import org.slf4j.LoggerFactory
 
 @Singleton
 class PersonEventProducerAdapter(
-//    @KafkaClient
-//    private val kafkaProducer: Producer<String, PersonMessageDTO>
-
     private val kafkaProducer: KafkaProducer
 ) : PersonEventProducerPort {
     override suspend fun notifyMessage(person: Person, personEventType: PersonEventType) {
