@@ -1,24 +1,34 @@
 import org.jetbrains.kotlin.gradle.dsl.Coroutines
 
-val kotlinVersion= project.properties["kotlinVersion"]
+val kotlinVersion = project.properties["kotlinVersion"]
 val micronautVersion = project.properties["micronautVersion"]
 
 plugins {
     kotlin("jvm") version "1.4.30"
     kotlin("kapt") version "1.4.30"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.4.30"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
 
 allprojects {
-    apply (plugin = "org.jetbrains.kotlin.jvm")
-    apply (plugin = "org.jetbrains.kotlin.kapt")
-    apply (plugin = "org.jetbrains.kotlin.plugin.allopen")
-    apply (plugin = "io.spring.dependency-management")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jetbrains.kotlin.kapt")
+    apply(plugin = "org.jetbrains.kotlin.plugin.allopen")
 
     repositories {
         mavenCentral()
+        jcenter()
+        gradlePluginPortal()
         maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+        maven("https://jcenter.bintray.com")
+        maven("https://packages.confluent.io/maven/")
+        maven("https://jitpack.io")
+    }
+
+    dependencies {
+        kapt("io.micronaut:micronaut-bom:${micronautVersion}")
+        kapt("io.micronaut.data:micronaut-data-processor")
+        kapt("io.micronaut:micronaut-validation")
+        kapt("io.micronaut:micronaut-inject-java")
     }
 }
 
@@ -30,12 +40,8 @@ subprojects {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
 
-    sourceSets {
-        main {
-            java {
-                srcDir("src/main/kotlin")
-            }
-        }
+    sourceSets.main {
+        java.srcDir("src/main/kotlin")
     }
 
     repositories {
@@ -44,15 +50,18 @@ subprojects {
     }
 
     dependencies {
+        kapt("io.micronaut:micronaut-bom:${micronautVersion}")
         kapt("io.micronaut.data:micronaut-data-processor")
-
+        kapt("io.micronaut:micronaut-validation")
         kapt("io.micronaut:micronaut-inject-java")
-        kaptTest("io.micronaut:micronaut-inject-java")
+
+        implementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
 
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+        implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.0.2.RELEASE")
 
         implementation("io.micronaut.reactor:micronaut-reactor")
         implementation("io.micronaut:micronaut-runtime")
@@ -67,11 +76,10 @@ subprojects {
         runtimeOnly("ch.qos.logback:logback-classic")
         runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-        dependencyManagement {
-            imports {
-                mavenBom("io.micronaut:micronaut-bom:${micronautVersion}")
-            }
-        }
+        kaptTest("io.micronaut:micronaut-bom:${micronautVersion}")
+        kaptTest("io.micronaut:micronaut-inject-java")
+
+        testImplementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
     }
 
     kotlin {

@@ -8,5 +8,6 @@ project(":rest").projectDir = file("input/rest")
 project(":kafka-consumer").projectDir = file("input/kafka-consumer")
 
 // Secondary
-include("mysql")
+include("mysql", "kafka-producer")
 project(":mysql").projectDir = file("output/mysql")
+project(":kafka-producer").projectDir = file("output/kafka-producer")

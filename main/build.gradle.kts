@@ -51,9 +51,24 @@ tasks {
     }
 }
 
+val kafkaJsonSerializer = project.properties["kafkaJsonSerializer"]
+val micronautKafka = project.properties["micronautKafka"]
+val micronautVersion = project.properties["micronautVersion"]
+
+val inputProjects = listOf(":rest")
+val outputProjects = listOf(":mysql", ":kafka-producer")
+val projects = listOf(":domain") + inputProjects + outputProjects
+
 dependencies {
-    implementation(project(":domain"))
-    implementation(project(":rest"))
-    implementation(project(":kafka-consumer"))
-    implementation(project(":mysql"))
+    projects.map { projects -> project(projects) }
+        .forEach { projectDependency -> implementation(projectDependency) }
+
+    kapt("io.micronaut:micronaut-bom:${micronautVersion}")
+    implementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
+
+    kaptTest("io.micronaut:micronaut-bom:${micronautVersion}")
+
+    testImplementation("io.micronaut.kafka:micronaut-kafka")
+    testImplementation("io.confluent:kafka-json-serializer:${kafkaJsonSerializer}")
+    testImplementation("io.confluent:kafka-json-schema-serializer:${kafkaJsonSerializer}")
 }

@@ -8,3 +8,8 @@ data class Person(
     val email: String,
     val cpf: String
 )
+
+enum class PersonEventType {
+    CREATE,
+    UPDATE
+}
