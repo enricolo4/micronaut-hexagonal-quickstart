@@ -66,6 +66,8 @@ dependencies {
     kapt("io.micronaut:micronaut-bom:${micronautVersion}")
     implementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
 
+    implementation("io.micronaut:micronaut-runtime")
+
     kaptTest("io.micronaut:micronaut-bom:${micronautVersion}")
 
     testImplementation("io.micronaut.kafka:micronaut-kafka")

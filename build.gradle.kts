@@ -64,8 +64,6 @@ subprojects {
         implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.0.2.RELEASE")
 
         implementation("io.micronaut.reactor:micronaut-reactor")
-        implementation("io.micronaut:micronaut-runtime")
-        implementation("io.micronaut.flyway:micronaut-flyway")
         implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
         implementation("io.micronaut:micronaut-inject")
         implementation("io.micronaut:micronaut-validation")
