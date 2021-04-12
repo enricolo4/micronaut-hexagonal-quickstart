@@ -26,7 +26,7 @@ allprojects {
 
     dependencies {
         kapt("io.micronaut:micronaut-bom:${micronautVersion}")
-        kapt("io.micronaut.data:micronaut-data-processor")
+        kapt("io.micronaut:micronaut-graal")
         kapt("io.micronaut:micronaut-validation")
         kapt("io.micronaut:micronaut-inject-java")
     }
@@ -51,7 +51,7 @@ subprojects {
 
     dependencies {
         kapt("io.micronaut:micronaut-bom:${micronautVersion}")
-        kapt("io.micronaut.data:micronaut-data-processor")
+        kapt("io.micronaut:micronaut-graal")
         kapt("io.micronaut:micronaut-validation")
         kapt("io.micronaut:micronaut-inject-java")
 
@@ -75,6 +75,8 @@ subprojects {
         runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
         kaptTest("io.micronaut:micronaut-bom:${micronautVersion}")
+        kaptTest("io.micronaut:micronaut-graal")
+        kaptTest("io.micronaut:micronaut-validation")
         kaptTest("io.micronaut:micronaut-inject-java")
 
         testImplementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))

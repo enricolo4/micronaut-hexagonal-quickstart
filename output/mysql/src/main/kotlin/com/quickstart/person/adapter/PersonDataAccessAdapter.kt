@@ -6,6 +6,8 @@ import com.quickstart.person.ports.output.PersonDataAccessPort
 import com.quickstart.person.repository.PersonRepository
 import javax.inject.Singleton
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.reactive.awaitSingle
 
 @Singleton
@@ -21,8 +23,8 @@ internal class PersonDataAccessAdapter(
     override suspend fun findAll(): List<Person> = coroutineScope {
         personRepository
             .findAll()
-            .collectList()
-            .awaitSingle()
+            .asFlow()
+            .toList()
             .map { personDBO ->
                 personDBO.toModel()
             }

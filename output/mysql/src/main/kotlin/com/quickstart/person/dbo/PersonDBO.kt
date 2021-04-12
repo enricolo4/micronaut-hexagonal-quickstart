@@ -1,5 +1,6 @@
 package com.quickstart.person.dbo
 import com.quickstart.person.model.Person
+import com.quickstart.shared.Auditable
 import io.micronaut.data.annotation.MappedEntity
 import java.util.UUID
 import java.util.UUID.randomUUID
@@ -12,7 +13,7 @@ internal data class PersonDBO(
     val name: String,
     val email: String,
     val cpf: String
-) {
+): Auditable() {
     fun toModel() = Person(
         id = UUID.fromString(id),
         name = name,

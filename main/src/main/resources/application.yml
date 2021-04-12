@@ -2,7 +2,7 @@ micronaut:
   application:
     name: micronautHexagonalQuickstart
   server:
-    port: 8087
+    port: 8080
 
 jpa:
   default:
@@ -30,9 +30,10 @@ flyway:
     default:
       enabled: true
       url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3311}/${MYSQL_NAME:mhq_db}
-      username: mhq_user
-      password: mhq_pwd
-      locations: classpath:/*.sql
+      username: ${MYSQL_USERNAME:mhq_user}
+      password: ${MYSQL_PASSWORD:mhq_pwd}
+      locations: classpath:/db/migration/*.sql
+      baseline-on-migrate: true
 kafka:
   bootstrap:
     servers: localhost:9092
