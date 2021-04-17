@@ -82,10 +82,6 @@ subprojects {
         testImplementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
     }
 
-    kotlin {
-        experimental.coroutines = Coroutines.ENABLE
-    }
-
     java {
         sourceCompatibility = JavaVersion.toVersion("11")
     }
