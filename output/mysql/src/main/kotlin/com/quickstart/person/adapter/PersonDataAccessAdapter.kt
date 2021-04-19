@@ -26,6 +26,11 @@ internal class PersonDataAccessAdapter(
     override suspend fun existsByCpf(cpf: String): Boolean = personRepository
         .existsByCpf(cpf)
 
+    override suspend fun update(person: Person) = personRepository
+        .update(person.toDBO())
+        .awaitSingleOrNull()
+        .toModel()
+
     override suspend fun findAll() = personRepository
         .findAll()
         .asFlow()
