@@ -8,7 +8,6 @@ import com.quickstart.person.model.PersonEventType
 import com.quickstart.person.ports.output.PersonEventProducerPort
 import com.quickstart.producer.KafkaProducer
 import javax.inject.Singleton
-import kotlinx.coroutines.coroutineScope
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -17,21 +16,17 @@ class PersonEventProducerAdapter(
     private val kafkaProducer: KafkaProducer
 ) : PersonEventProducerPort {
     override suspend fun notifyMessage(person: Person, personEventType: PersonEventType) {
-        coroutineScope {
-            runCatching {
-                val personMessageDTO = person.toEventCreate(personEventType)
-                notifyMessage(personMessageDTO)
-            }
-                .onSuccess { logger.info("Person event sent for: $person") }
-                .onFailure { throw PersonEventProducerException("Could not send person event for: $person") }
+        runCatching {
+            val personMessageDTO = person.toEventCreate(personEventType)
+            notifyMessage(personMessageDTO)
         }
+            .onSuccess { logger.info("Person event sent for: $person") }
+            .onFailure { throw PersonEventProducerException("Could not send person event for: $person") }
     }
 
     private suspend fun notifyMessage(personMessageDTO: PersonMessageDTO) {
-        coroutineScope {
-            logger.info("Sending person event: $personMessageDTO")
-            kafkaProducer.sendMessage(personMessageDTO.id, personMessageDTO)
-        }
+        logger.info("Sending person event: $personMessageDTO")
+        kafkaProducer.sendMessage(personMessageDTO.id, personMessageDTO)
     }
 
     companion object {

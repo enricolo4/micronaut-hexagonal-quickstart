@@ -8,22 +8,17 @@ import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
-import kotlinx.coroutines.coroutineScope
 
 @Controller("/person")
 class PersonController(
     private val personInputPort: PersonInputPort
 ) {
     @Post(produces = [APPLICATION_JSON])
-    suspend fun save(@Body personDTO: PersonDTO) = coroutineScope {
-        personInputPort.save(personDTO.toModel()).toDTO()
-    }
+    suspend fun save(@Body personDTO: PersonDTO) = personInputPort.save(personDTO.toModel()).toDTO()
 
     @Get(produces = [APPLICATION_JSON])
-    suspend fun findAll() = coroutineScope {
-        personInputPort.findAll()
-            .map { person ->
-                person.toDTO()
-            }
-    }
+    suspend fun findAll() = personInputPort.findAll()
+        .map { person ->
+            person.toDTO()
+        }
 }

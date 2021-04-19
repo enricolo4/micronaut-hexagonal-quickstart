@@ -1,5 +1,6 @@
 package com.quickstart.person.usecase
 
+import com.quickstart.person.exceptions.PersonAlreadyExistsException
 import com.quickstart.person.model.Person
 import com.quickstart.person.ports.input.PersonInputPort
 import com.quickstart.person.model.PersonEventType.CREATE
@@ -14,12 +15,15 @@ class PersonUseCase(
     private val personDataAccessPort: PersonDataAccessPort,
     private val personEventProducerPort: PersonEventProducerPort
 ) : PersonInputPort {
-    override suspend fun save(person: Person) = coroutineScope {
+    override suspend fun save(person: Person): Person {
         logger.info("Saving Person: $person")
 
-        personDataAccessPort.save(person).also { personSaved ->
+        if(personDataAccessPort.existsByCpf(person.cpf))
+            throw PersonAlreadyExistsException("Person with cpf: ${person.cpf} already exists")
+
+        return personDataAccessPort.save(person).also { personSaved ->
             logger.info("Person Saved: $personSaved")
-            personEventProducerPort.notifyMessage(person=personSaved, personEventType = CREATE)
+            personEventProducerPort.notifyMessage(person = personSaved, personEventType = CREATE)
         }
     }
 
