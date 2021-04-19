@@ -1,7 +1,21 @@
-import org.jetbrains.kotlin.gradle.dsl.Coroutines
-
 val kotlinVersion = project.properties["kotlinVersion"]
 val micronautVersion = project.properties["micronautVersion"]
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        gradlePluginPortal()
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+        maven("https://jcenter.bintray.com")
+        maven("https://packages.confluent.io/maven/")
+        maven("https://jitpack.io")
+    }
+
+    dependencies {
+        classpath( kotlin("gradle-plugin:1.4.30"))
+    }
+}
 
 plugins {
     kotlin("jvm") version "1.4.30"

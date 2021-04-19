@@ -16,7 +16,7 @@ jpa:
 r2dbc:
   datasources:
     default:
-      schema-generate: CREATE
+      schema-generate: NONE
       dialect: MYSQL
       url: r2dbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3311}/${MYSQL_NAME:mhq_db}
       username: mhq_user

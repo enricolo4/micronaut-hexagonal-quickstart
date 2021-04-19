@@ -4,10 +4,10 @@ volumes:
   user-data:
 
 services:
-  mhq_service:
+  mhq_mysql_database:
     image: mysql:8.0
     restart: always
-    container_name: micronaut-hexagonal-quickstart
+    container_name: mhq_mysql_db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mhq_db
